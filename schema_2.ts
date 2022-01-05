@@ -88,12 +88,24 @@ export const lists: Lists = {
   }),
   Hospital: list({
     fields: {
-      hospitalName: text({ validation: { isRequired: true } })
+      hospitalName: text({ validation: { isRequired: true } }),
+      hospitalKey: text({ validation: { isRequired: true }, isIndexed: true }),
+      municipality: select({
+        type: "enum",
+        options: [
+          { label: "Blouberg Municipality", value: "BLBG" },
+          { label: "Capricorn Municipality", value: "CPRN" },
+          { label: "Ekhuruleni Municipality", value: "EKRN" },
+          { label: "Waterval Municipality", value: "WTRV" },
+          { label: "Luonde Municipality", value: "LNDE" }
+        ]
+      })
     }
   }),
   Municipality: list({
     fields: {
-      municipalityName: text({ validation: { isRequired: true } })
+      municipalityName: text({ validation: { isRequired: true } }),
+      municipalKey: text({ validation: { isRequired: true }, isIndexed: "unique" })
     }
   })
 };
