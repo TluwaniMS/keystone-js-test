@@ -1,5 +1,5 @@
 import { list } from "@keystone-6/core";
-import { select, text } from "@keystone-6/core/fields";
+import { relationship, select, text } from "@keystone-6/core/fields";
 import { Lists } from ".keystone/types";
 
 export const lists: Lists = {
@@ -27,85 +27,22 @@ export const lists: Lists = {
           { label: "Radiologist", value: "radiologist" }
         ]
       }),
-      hospital: select({
-        type: "enum",
-        options: [
-          {
-            label: "Sekhukhune Private Hospital",
-            value: "SKKN"
-          },
-          {
-            label: "Shapo Private Hospital",
-            value: "SHPO"
-          },
-          {
-            label: "Polokwane Hospital",
-            value: "PLKH"
-          },
-          {
-            label: "Botlokwa Hospital",
-            value: "BTLK"
-          },
-          {
-            label: "Marobjyane Private Hospital",
-            value: "MRBJ"
-          },
-          {
-            label: "Ntsundeni Private Hospital",
-            value: "NTNP"
-          },
-          {
-            label: "Moshe Hospital",
-            value: "MSHH"
-          },
-          {
-            label: "Marabastad Hospital",
-            value: "MRSB"
-          },
-          {
-            label: "Baloyi Hospital",
-            value: "BLYH"
-          },
-          {
-            label: "Vhatwanamba Private Health Care",
-            value: "VTPH"
-          },
-          {
-            label: "Bulombo Hospital",
-            value: "BLMH"
-          },
-          {
-            label: "Mashashane Hospital",
-            value: "MSSH"
-          },
-          {
-            label: "dendron Health Centre",
-            value: "DNDH"
-          }
-        ]
-      })
+      hospital: relationship({ ref: "Hospital.doctors", many: false })
     }
   }),
   Hospital: list({
     fields: {
       hospitalName: text({ validation: { isRequired: true } }),
       hospitalKey: text({ validation: { isRequired: true }, isIndexed: true }),
-      municipality: select({
-        type: "enum",
-        options: [
-          { label: "Blouberg Municipality", value: "BLBG" },
-          { label: "Capricorn Municipality", value: "CPRN" },
-          { label: "Ekhuruleni Municipality", value: "EKRN" },
-          { label: "Waterval Municipality", value: "WTRV" },
-          { label: "Luonde Municipality", value: "LNDE" }
-        ]
-      })
+      municipality: relationship({ ref: "Municipality.hospitals", many: false }),
+      doctors: relationship({ ref: "Doctor.hospital", many: true })
     }
   }),
   Municipality: list({
     fields: {
       municipalityName: text({ validation: { isRequired: true } }),
-      municipalKey: text({ validation: { isRequired: true }, isIndexed: "unique" })
+      municipalKey: text({ validation: { isRequired: true }, isIndexed: "unique" }),
+      hospitals: relationship({ ref: "Hospital.municipality", many: true })
     }
   })
 };
