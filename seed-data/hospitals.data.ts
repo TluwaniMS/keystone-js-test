@@ -1,4 +1,6 @@
-export const Hospitals = [
+import { Hospital } from "../data-types/hospital.type";
+
+export const Hospitals: Hospital[] = [
   {
     hospitalName: "Sekhukhune Private Hospital",
     hospitalKey: "SKKN"

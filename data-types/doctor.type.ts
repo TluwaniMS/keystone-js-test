@@ -4,5 +4,4 @@ export type Doctor = {
   email: string;
   gender: string;
   specialty: string;
-  hospital: string;
 };

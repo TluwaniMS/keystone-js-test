@@ -1,4 +1,4 @@
 export type Municipality = {
-  municipalKey: string;
+  municipalityKey: string;
   municipalityName: string;
 };
