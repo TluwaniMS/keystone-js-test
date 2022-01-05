@@ -11,8 +11,8 @@ export const lists: Lists = {
       gender: select({
         type: "enum",
         options: [
-          { label: "", value: "" },
-          { label: "", value: "" }
+          { label: "Male", value: "male" },
+          { label: "Female", value: "female" }
         ]
       }),
       specialty: select({
