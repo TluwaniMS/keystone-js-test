@@ -16,24 +16,36 @@ model User {
   name     String @default("")
   email    String @unique @default("")
   password String
-  posts    Post[] @relation("Post_author")
 }
 
-model Post {
-  id          String    @id @default(cuid())
-  title       String    @default("")
-  status      String?   @default("draft")
-  content     String    @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  publishDate DateTime?
-  author      User?     @relation("Post_author", fields: [authorId], references: [id])
-  authorId    String?   @map("author")
-  tags        Tag[]     @relation("Post_tags")
+model Doctor {
+  id         String    @id @default(cuid())
+  name       String    @default("")
+  surname    String    @default("")
+  email      String    @unique @default("")
+  gender     String?
+  specialty  String?
+  hospital   Hospital? @relation("Doctor_hospital", fields: [hospitalId], references: [id])
+  hospitalId String?   @map("hospital")
 
-  @@index([authorId])
+  @@index([hospitalId])
 }
 
-model Tag {
-  id    String @id @default(cuid())
-  name  String @default("")
-  posts Post[] @relation("Post_tags")
+model Hospital {
+  id             String        @id @default(cuid())
+  hospitalName   String        @default("")
+  hospitalKey    String        @default("")
+  municipality   Municipality? @relation("Hospital_municipality", fields: [municipalityId], references: [id])
+  municipalityId String?       @map("municipality")
+  doctors        Doctor[]      @relation("Doctor_hospital")
+
+  @@index([hospitalKey])
+  @@index([municipalityId])
+}
+
+model Municipality {
+  id               String     @id @default(cuid())
+  municipalityName String     @default("")
+  municipalKey     String     @unique @default("")
+  hospitals        Hospital[] @relation("Hospital_municipality")
 }

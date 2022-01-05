@@ -6,13 +6,6 @@ type User {
   name: String
   email: String
   password: PasswordState
-  posts(
-    where: PostWhereInput! = {}
-    orderBy: [PostOrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-  ): [Post!]
-  postsCount(where: PostWhereInput! = {}): Int
 }
 
 type PasswordState {
@@ -31,7 +24,6 @@ input UserWhereInput {
   id: IDFilter
   name: StringFilter
   email: StringFilter
-  posts: PostManyRelationFilter
 }
 
 input IDFilter {
@@ -73,12 +65,6 @@ input NestedStringFilter {
   not: NestedStringFilter
 }
 
-input PostManyRelationFilter {
-  every: PostWhereInput
-  some: PostWhereInput
-  none: PostWhereInput
-}
-
 input UserOrderByInput {
   id: OrderDirection
   name: OrderDirection
@@ -94,14 +80,6 @@ input UserUpdateInput {
   name: String
   email: String
   password: String
-  posts: PostRelateToManyForUpdateInput
-}
-
-input PostRelateToManyForUpdateInput {
-  disconnect: [PostWhereUniqueInput!]
-  set: [PostWhereUniqueInput!]
-  create: [PostCreateInput!]
-  connect: [PostWhereUniqueInput!]
 }
 
 input UserUpdateArgs {
@@ -113,203 +91,259 @@ input UserCreateInput {
   name: String
   email: String
   password: String
-  posts: PostRelateToManyForCreateInput
 }
 
-input PostRelateToManyForCreateInput {
-  create: [PostCreateInput!]
-  connect: [PostWhereUniqueInput!]
-}
-
-type Post {
+type Doctor {
   id: ID!
-  title: String
-  status: String
-  content: Post_content_Document
-  publishDate: DateTime
-  author: User
-  tags(
-    where: TagWhereInput! = {}
-    orderBy: [TagOrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-  ): [Tag!]
-  tagsCount(where: TagWhereInput! = {}): Int
+  name: String
+  surname: String
+  email: String
+  gender: DoctorGenderType
+  specialty: DoctorSpecialtyType
+  hospital: Hospital
 }
 
-type Post_content_Document {
-  document(hydrateRelationships: Boolean! = false): JSON!
+enum DoctorGenderType {
+  male
+  female
 }
 
-scalar DateTime
-  @specifiedBy(url: "https://datatracker.ietf.org/doc/html/rfc3339#section-5.6")
+enum DoctorSpecialtyType {
+  pediatrician
+  dematologist
+  cardiologist
+  urologist
+  neurologist
+  psychiatrist
+  radiologist
+}
 
-input PostWhereUniqueInput {
+input DoctorWhereUniqueInput {
   id: ID
+  email: String
 }
 
-input PostWhereInput {
-  AND: [PostWhereInput!]
-  OR: [PostWhereInput!]
-  NOT: [PostWhereInput!]
+input DoctorWhereInput {
+  AND: [DoctorWhereInput!]
+  OR: [DoctorWhereInput!]
+  NOT: [DoctorWhereInput!]
   id: IDFilter
-  title: StringFilter
-  status: StringNullableFilter
-  publishDate: DateTimeNullableFilter
-  author: UserWhereInput
-  tags: TagManyRelationFilter
+  name: StringFilter
+  surname: StringFilter
+  email: StringFilter
+  gender: DoctorGenderTypeNullableFilter
+  specialty: DoctorSpecialtyTypeNullableFilter
+  hospital: HospitalWhereInput
 }
 
-input StringNullableFilter {
-  equals: String
-  in: [String!]
-  notIn: [String!]
-  lt: String
-  lte: String
-  gt: String
-  gte: String
-  contains: String
-  startsWith: String
-  endsWith: String
-  not: NestedStringNullableFilter
+input DoctorGenderTypeNullableFilter {
+  equals: DoctorGenderType
+  in: [DoctorGenderType!]
+  notIn: [DoctorGenderType!]
+  not: DoctorGenderTypeNullableFilter
 }
 
-input NestedStringNullableFilter {
-  equals: String
-  in: [String!]
-  notIn: [String!]
-  lt: String
-  lte: String
-  gt: String
-  gte: String
-  contains: String
-  startsWith: String
-  endsWith: String
-  not: NestedStringNullableFilter
+input DoctorSpecialtyTypeNullableFilter {
+  equals: DoctorSpecialtyType
+  in: [DoctorSpecialtyType!]
+  notIn: [DoctorSpecialtyType!]
+  not: DoctorSpecialtyTypeNullableFilter
 }
 
-input DateTimeNullableFilter {
-  equals: DateTime
-  in: [DateTime!]
-  notIn: [DateTime!]
-  lt: DateTime
-  lte: DateTime
-  gt: DateTime
-  gte: DateTime
-  not: DateTimeNullableFilter
-}
-
-input TagManyRelationFilter {
-  every: TagWhereInput
-  some: TagWhereInput
-  none: TagWhereInput
-}
-
-input PostOrderByInput {
+input DoctorOrderByInput {
   id: OrderDirection
-  title: OrderDirection
-  status: OrderDirection
-  publishDate: OrderDirection
+  name: OrderDirection
+  surname: OrderDirection
+  email: OrderDirection
+  gender: OrderDirection
+  specialty: OrderDirection
 }
 
-input PostUpdateInput {
-  title: String
-  status: String
-  content: JSON
-  publishDate: DateTime
-  author: UserRelateToOneForUpdateInput
-  tags: TagRelateToManyForUpdateInput
+input DoctorUpdateInput {
+  name: String
+  surname: String
+  email: String
+  gender: DoctorGenderType
+  specialty: DoctorSpecialtyType
+  hospital: HospitalRelateToOneForUpdateInput
 }
 
-input UserRelateToOneForUpdateInput {
-  create: UserCreateInput
-  connect: UserWhereUniqueInput
+input HospitalRelateToOneForUpdateInput {
+  create: HospitalCreateInput
+  connect: HospitalWhereUniqueInput
   disconnect: Boolean
 }
 
-input TagRelateToManyForUpdateInput {
-  disconnect: [TagWhereUniqueInput!]
-  set: [TagWhereUniqueInput!]
-  create: [TagCreateInput!]
-  connect: [TagWhereUniqueInput!]
+input DoctorUpdateArgs {
+  where: DoctorWhereUniqueInput!
+  data: DoctorUpdateInput!
 }
 
-input PostUpdateArgs {
-  where: PostWhereUniqueInput!
-  data: PostUpdateInput!
-}
-
-input PostCreateInput {
-  title: String
-  status: String
-  content: JSON
-  publishDate: DateTime
-  author: UserRelateToOneForCreateInput
-  tags: TagRelateToManyForCreateInput
-}
-
-input UserRelateToOneForCreateInput {
-  create: UserCreateInput
-  connect: UserWhereUniqueInput
-}
-
-input TagRelateToManyForCreateInput {
-  create: [TagCreateInput!]
-  connect: [TagWhereUniqueInput!]
-}
-
-type Tag {
-  id: ID!
+input DoctorCreateInput {
   name: String
-  posts(
-    where: PostWhereInput! = {}
-    orderBy: [PostOrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-  ): [Post!]
-  postsCount(where: PostWhereInput! = {}): Int
+  surname: String
+  email: String
+  gender: DoctorGenderType
+  specialty: DoctorSpecialtyType
+  hospital: HospitalRelateToOneForCreateInput
 }
 
-input TagWhereUniqueInput {
+input HospitalRelateToOneForCreateInput {
+  create: HospitalCreateInput
+  connect: HospitalWhereUniqueInput
+}
+
+type Hospital {
+  id: ID!
+  hospitalName: String
+  hospitalKey: String
+  municipality: Municipality
+  doctors(where: DoctorWhereInput! = {}, orderBy: [DoctorOrderByInput!]! = [], take: Int, skip: Int! = 0): [Doctor!]
+  doctorsCount(where: DoctorWhereInput! = {}): Int
+}
+
+input HospitalWhereUniqueInput {
   id: ID
 }
 
-input TagWhereInput {
-  AND: [TagWhereInput!]
-  OR: [TagWhereInput!]
-  NOT: [TagWhereInput!]
+input HospitalWhereInput {
+  AND: [HospitalWhereInput!]
+  OR: [HospitalWhereInput!]
+  NOT: [HospitalWhereInput!]
   id: IDFilter
-  name: StringFilter
-  posts: PostManyRelationFilter
+  hospitalName: StringFilter
+  hospitalKey: StringFilter
+  municipality: MunicipalityWhereInput
+  doctors: DoctorManyRelationFilter
 }
 
-input TagOrderByInput {
+input DoctorManyRelationFilter {
+  every: DoctorWhereInput
+  some: DoctorWhereInput
+  none: DoctorWhereInput
+}
+
+input HospitalOrderByInput {
   id: OrderDirection
-  name: OrderDirection
+  hospitalName: OrderDirection
+  hospitalKey: OrderDirection
 }
 
-input TagUpdateInput {
-  name: String
-  posts: PostRelateToManyForUpdateInput
+input HospitalUpdateInput {
+  hospitalName: String
+  hospitalKey: String
+  municipality: MunicipalityRelateToOneForUpdateInput
+  doctors: DoctorRelateToManyForUpdateInput
 }
 
-input TagUpdateArgs {
-  where: TagWhereUniqueInput!
-  data: TagUpdateInput!
+input MunicipalityRelateToOneForUpdateInput {
+  create: MunicipalityCreateInput
+  connect: MunicipalityWhereUniqueInput
+  disconnect: Boolean
 }
 
-input TagCreateInput {
-  name: String
-  posts: PostRelateToManyForCreateInput
+input DoctorRelateToManyForUpdateInput {
+  disconnect: [DoctorWhereUniqueInput!]
+  set: [DoctorWhereUniqueInput!]
+  create: [DoctorCreateInput!]
+  connect: [DoctorWhereUniqueInput!]
+}
+
+input HospitalUpdateArgs {
+  where: HospitalWhereUniqueInput!
+  data: HospitalUpdateInput!
+}
+
+input HospitalCreateInput {
+  hospitalName: String
+  hospitalKey: String
+  municipality: MunicipalityRelateToOneForCreateInput
+  doctors: DoctorRelateToManyForCreateInput
+}
+
+input MunicipalityRelateToOneForCreateInput {
+  create: MunicipalityCreateInput
+  connect: MunicipalityWhereUniqueInput
+}
+
+input DoctorRelateToManyForCreateInput {
+  create: [DoctorCreateInput!]
+  connect: [DoctorWhereUniqueInput!]
+}
+
+type Municipality {
+  id: ID!
+  municipalityName: String
+  municipalKey: String
+  hospitals(
+    where: HospitalWhereInput! = {}
+    orderBy: [HospitalOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Hospital!]
+  hospitalsCount(where: HospitalWhereInput! = {}): Int
+}
+
+input MunicipalityWhereUniqueInput {
+  id: ID
+  municipalKey: String
+}
+
+input MunicipalityWhereInput {
+  AND: [MunicipalityWhereInput!]
+  OR: [MunicipalityWhereInput!]
+  NOT: [MunicipalityWhereInput!]
+  id: IDFilter
+  municipalityName: StringFilter
+  municipalKey: StringFilter
+  hospitals: HospitalManyRelationFilter
+}
+
+input HospitalManyRelationFilter {
+  every: HospitalWhereInput
+  some: HospitalWhereInput
+  none: HospitalWhereInput
+}
+
+input MunicipalityOrderByInput {
+  id: OrderDirection
+  municipalityName: OrderDirection
+  municipalKey: OrderDirection
+}
+
+input MunicipalityUpdateInput {
+  municipalityName: String
+  municipalKey: String
+  hospitals: HospitalRelateToManyForUpdateInput
+}
+
+input HospitalRelateToManyForUpdateInput {
+  disconnect: [HospitalWhereUniqueInput!]
+  set: [HospitalWhereUniqueInput!]
+  create: [HospitalCreateInput!]
+  connect: [HospitalWhereUniqueInput!]
+}
+
+input MunicipalityUpdateArgs {
+  where: MunicipalityWhereUniqueInput!
+  data: MunicipalityUpdateInput!
+}
+
+input MunicipalityCreateInput {
+  municipalityName: String
+  municipalKey: String
+  hospitals: HospitalRelateToManyForCreateInput
+}
+
+input HospitalRelateToManyForCreateInput {
+  create: [HospitalCreateInput!]
+  connect: [HospitalWhereUniqueInput!]
 }
 
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
-scalar JSON
-  @specifiedBy(
-    url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf"
-  )
+scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
 
 type Mutation {
   createUser(data: UserCreateInput!): User
@@ -318,26 +352,27 @@ type Mutation {
   updateUsers(data: [UserUpdateArgs!]!): [User]
   deleteUser(where: UserWhereUniqueInput!): User
   deleteUsers(where: [UserWhereUniqueInput!]!): [User]
-  createPost(data: PostCreateInput!): Post
-  createPosts(data: [PostCreateInput!]!): [Post]
-  updatePost(where: PostWhereUniqueInput!, data: PostUpdateInput!): Post
-  updatePosts(data: [PostUpdateArgs!]!): [Post]
-  deletePost(where: PostWhereUniqueInput!): Post
-  deletePosts(where: [PostWhereUniqueInput!]!): [Post]
-  createTag(data: TagCreateInput!): Tag
-  createTags(data: [TagCreateInput!]!): [Tag]
-  updateTag(where: TagWhereUniqueInput!, data: TagUpdateInput!): Tag
-  updateTags(data: [TagUpdateArgs!]!): [Tag]
-  deleteTag(where: TagWhereUniqueInput!): Tag
-  deleteTags(where: [TagWhereUniqueInput!]!): [Tag]
+  createDoctor(data: DoctorCreateInput!): Doctor
+  createDoctors(data: [DoctorCreateInput!]!): [Doctor]
+  updateDoctor(where: DoctorWhereUniqueInput!, data: DoctorUpdateInput!): Doctor
+  updateDoctors(data: [DoctorUpdateArgs!]!): [Doctor]
+  deleteDoctor(where: DoctorWhereUniqueInput!): Doctor
+  deleteDoctors(where: [DoctorWhereUniqueInput!]!): [Doctor]
+  createHospital(data: HospitalCreateInput!): Hospital
+  createHospitals(data: [HospitalCreateInput!]!): [Hospital]
+  updateHospital(where: HospitalWhereUniqueInput!, data: HospitalUpdateInput!): Hospital
+  updateHospitals(data: [HospitalUpdateArgs!]!): [Hospital]
+  deleteHospital(where: HospitalWhereUniqueInput!): Hospital
+  deleteHospitals(where: [HospitalWhereUniqueInput!]!): [Hospital]
+  createMunicipality(data: MunicipalityCreateInput!): Municipality
+  createMunicipalities(data: [MunicipalityCreateInput!]!): [Municipality]
+  updateMunicipality(where: MunicipalityWhereUniqueInput!, data: MunicipalityUpdateInput!): Municipality
+  updateMunicipalities(data: [MunicipalityUpdateArgs!]!): [Municipality]
+  deleteMunicipality(where: MunicipalityWhereUniqueInput!): Municipality
+  deleteMunicipalities(where: [MunicipalityWhereUniqueInput!]!): [Municipality]
   endSession: Boolean!
-  authenticateUserWithPassword(
-    email: String!
-    password: String!
-  ): UserAuthenticationWithPasswordResult
-  createInitialUser(
-    data: CreateInitialUserInput!
-  ): UserAuthenticationWithPasswordSuccess!
+  authenticateUserWithPassword(email: String!, password: String!): UserAuthenticationWithPasswordResult
+  createInitialUser(data: CreateInitialUserInput!): UserAuthenticationWithPasswordSuccess!
 }
 
 union UserAuthenticationWithPasswordResult =
@@ -360,30 +395,28 @@ input CreateInitialUserInput {
 }
 
 type Query {
-  users(
-    where: UserWhereInput! = {}
-    orderBy: [UserOrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-  ): [User!]
+  users(where: UserWhereInput! = {}, orderBy: [UserOrderByInput!]! = [], take: Int, skip: Int! = 0): [User!]
   user(where: UserWhereUniqueInput!): User
   usersCount(where: UserWhereInput! = {}): Int
-  posts(
-    where: PostWhereInput! = {}
-    orderBy: [PostOrderByInput!]! = []
+  doctors(where: DoctorWhereInput! = {}, orderBy: [DoctorOrderByInput!]! = [], take: Int, skip: Int! = 0): [Doctor!]
+  doctor(where: DoctorWhereUniqueInput!): Doctor
+  doctorsCount(where: DoctorWhereInput! = {}): Int
+  hospitals(
+    where: HospitalWhereInput! = {}
+    orderBy: [HospitalOrderByInput!]! = []
     take: Int
     skip: Int! = 0
-  ): [Post!]
-  post(where: PostWhereUniqueInput!): Post
-  postsCount(where: PostWhereInput! = {}): Int
-  tags(
-    where: TagWhereInput! = {}
-    orderBy: [TagOrderByInput!]! = []
+  ): [Hospital!]
+  hospital(where: HospitalWhereUniqueInput!): Hospital
+  hospitalsCount(where: HospitalWhereInput! = {}): Int
+  municipalities(
+    where: MunicipalityWhereInput! = {}
+    orderBy: [MunicipalityOrderByInput!]! = []
     take: Int
     skip: Int! = 0
-  ): [Tag!]
-  tag(where: TagWhereUniqueInput!): Tag
-  tagsCount(where: TagWhereInput! = {}): Int
+  ): [Municipality!]
+  municipality(where: MunicipalityWhereUniqueInput!): Municipality
+  municipalitiesCount(where: MunicipalityWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }
