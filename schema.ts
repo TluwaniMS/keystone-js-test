@@ -102,7 +102,7 @@ export const lists: Lists = {
   Municipality: list({
     fields: {
       municipalityName: text({ validation: { isRequired: true } }),
-      municipalKey: text({ validation: { isRequired: true }, isIndexed: "unique" }),
+      municipalityKey: text({ validation: { isRequired: true }, isIndexed: "unique" }),
       hospitals: relationship({
         ref: "Hospital.municipality",
         many: true,
