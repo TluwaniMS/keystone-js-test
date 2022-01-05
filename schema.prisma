@@ -46,6 +46,6 @@ model Hospital {
 model Municipality {
   id               String     @id @default(cuid())
   municipalityName String     @default("")
-  municipalKey     String     @unique @default("")
+  municipalityKey  String     @unique @default("")
   hospitals        Hospital[] @relation("Hospital_municipality")
 }
