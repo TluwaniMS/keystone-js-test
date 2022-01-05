@@ -27,7 +27,14 @@ export const lists: Lists = {
           { label: "Radiologist", value: "radiologist" }
         ]
       }),
-      hospital: relationship({ ref: "Hospital.doctors", many: false })
+      hospital: relationship({
+        ref: "Hospital.doctors",
+        many: false,
+        ui: {
+          displayMode: "cards",
+          cardFields: ["hospitalName"]
+        }
+      })
     }
   }),
   Hospital: list({
@@ -35,14 +42,28 @@ export const lists: Lists = {
       hospitalName: text({ validation: { isRequired: true } }),
       hospitalKey: text({ validation: { isRequired: true }, isIndexed: true }),
       municipality: relationship({ ref: "Municipality.hospitals", many: false }),
-      doctors: relationship({ ref: "Doctor.hospital", many: true })
+      doctors: relationship({
+        ref: "Doctor.hospital",
+        many: true,
+        ui: {
+          displayMode: "cards",
+          cardFields: ["name", "surname", "email", "gender", "specialty"]
+        }
+      })
     }
   }),
   Municipality: list({
     fields: {
       municipalityName: text({ validation: { isRequired: true } }),
       municipalKey: text({ validation: { isRequired: true }, isIndexed: "unique" }),
-      hospitals: relationship({ ref: "Hospital.municipality", many: true })
+      hospitals: relationship({
+        ref: "Hospital.municipality",
+        many: true,
+        ui: {
+          displayMode: "cards",
+          cardFields: ["hospitalName"]
+        }
+      })
     }
   })
 };
