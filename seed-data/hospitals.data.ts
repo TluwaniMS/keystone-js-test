@@ -3,54 +3,67 @@ import { Hospital } from "../data-types/hospital.type";
 export const Hospitals: Hospital[] = [
   {
     hospitalName: "Sekhukhune Private Hospital",
-    hospitalKey: "SKKN"
+    hospitalKey: "SKKN",
+    municipality: "BLBG"
   },
   {
     hospitalName: "Shapo Private Hospital",
-    hospitalKey: "SHPO"
+    hospitalKey: "SHPO",
+    municipality: "BLBG"
   },
   {
     hospitalName: "Polokwane Hospital",
-    hospitalKey: "PLKH"
+    hospitalKey: "PLKH",
+    municipality: "EKRN"
   },
   {
     hospitalName: "Botlokwa Hospital",
-    hospitalKey: "BTLK"
+    hospitalKey: "BTLK",
+    municipality: "WTRV"
   },
   {
     hospitalName: "Marobjyane Private Hospital",
-    hospitalKey: "MRBJ"
+    hospitalKey: "MRBJ",
+    municipality: "EKRN"
   },
   {
     hospitalName: "Ntsundeni Private Hospital",
-    hospitalKey: "NTNP"
+    hospitalKey: "NTNP",
+    municipality: "LNDE"
   },
   {
     hospitalName: "Moshe Hospital",
-    hospitalKey: "MSHH"
+    hospitalKey: "MSHH",
+    municipality: "WTRV"
   },
   {
     hospitalName: "Marabastad Hospital",
-    hospitalKey: "MRSB"
+    hospitalKey: "MRSB",
+    municipality: "BLBG"
   },
   {
     hospitalName: "Baloyi Hospital",
-    hospitalKey: "BLYH"
+    hospitalKey: "BLYH",
+    municipality: "EKRN"
   },
   {
     hospitalName: "Vhatwanamba Private Health Care",
-    hospitalKey: "VTPH"
+    hospitalKey: "VTPH",
+    municipality: "CPRN"
   },
   {
     hospitalName: "Bulombo Hospital",
-    hospitalKey: "BLMH"
+    hospitalKey: "BLMH",
+    municipality: "LNDE"
   },
   {
     hospitalName: "Mashashane Hospital",
-    hospitalKey: "MSSH"
+    hospitalKey: "MSSH",
+    municipality: "WTRV"
   },
   {
     hospitalName: "dendron Health Centre",
-    hospitalKey: "DNDH"
+    hospitalKey: "DNDH",
+    municipality: "CPRN"
   }
 ];
