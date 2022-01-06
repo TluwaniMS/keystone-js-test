@@ -3,7 +3,7 @@ import { Municipalities } from "../seed-data/municipalities.data";
 import { KeystoneContext } from "@keystone-6/core/types";
 import { getMunicipalityByKey } from "./municipalities.auxiliary";
 
-export const prepareHospitalsData = (context: KeystoneContext, hospitals: Hospital[]) => {
+export const prepareHospitalsData = async (context: KeystoneContext, hospitals: Hospital[]) => {
   const preparedHospitalsData: Hospital[] = [];
 
   Municipalities.forEach(async (municipality) => {

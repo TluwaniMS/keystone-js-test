@@ -3,6 +3,6 @@ import { prepareHospitalsData } from "../auxilliary-services/hospitals.auxiliary
 import { Hospitals } from "../seed-data/hospitals.data";
 
 export const createHospitals = async (context: KeystoneContext) => {
-  const preparedHospitalData = prepareHospitalsData(context, Hospitals);
+  const preparedHospitalData = await prepareHospitalsData(context, Hospitals);
   await context.query.Hospital.createMany({ data: preparedHospitalData });
 };

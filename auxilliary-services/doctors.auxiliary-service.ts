@@ -3,7 +3,7 @@ import { Hospitals } from "../seed-data/hospitals.data";
 import { getHospitalByHospitalKey } from "./hospitals.auxiliary-service";
 import { KeystoneContext } from "@keystone-6/core/types";
 
-export const prepareDoctorsData = (context: KeystoneContext, doctors: Doctor[]) => {
+export const prepareDoctorsData = async (context: KeystoneContext, doctors: Doctor[]) => {
   const preparedDoctors: Doctor[] = [];
 
   Hospitals.forEach(async (hospital) => {
