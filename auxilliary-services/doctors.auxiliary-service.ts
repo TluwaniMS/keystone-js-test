@@ -1,15 +1,14 @@
 import { Doctor } from "../data-types/doctor.type";
-import { Hospitals } from "../seed-data/hospitals.data";
-import { getHospitalByHospitalKey } from "./hospitals.auxiliary-service";
 import { KeystoneContext } from "@keystone-6/core/types";
 
 export const prepareDoctorsData = async (context: KeystoneContext, doctors: Doctor[]) => {
   const preparedDoctors: Doctor[] = [];
 
-  Hospitals.forEach(async (hospital) => {
-    const currentHospital = await getHospitalByHospitalKey(hospital.hospitalKey, context);
+  const hospitals = await context.query.Hospital.findMany({ query: "id hospitalKey hospitalName" });
+
+  hospitals.forEach((hospital) => {
     const doctorsLinkedToHospital = getDoctorsLinkedToHospital(hospital.hospitalKey, doctors);
-    const doctorsWithHospitalLinks = createLinkBetweenDoctorsAndHospitals(doctorsLinkedToHospital, currentHospital.id);
+    const doctorsWithHospitalLinks = createLinkBetweenDoctorsAndHospitals(doctorsLinkedToHospital, hospital.id);
     preparedDoctors.push(...doctorsWithHospitalLinks);
   });
 
