@@ -79,7 +79,9 @@ export const lists: Lists = {
         many: false,
         ui: {
           displayMode: "cards",
-          cardFields: ["hospitalName"]
+          cardFields: ["hospitalName","hospitalKey"],
+          inlineConnect: true,
+          linkToItem: true
         }
       })
     }
@@ -94,9 +96,16 @@ export const lists: Lists = {
         many: true,
         ui: {
           displayMode: "cards",
-          cardFields: ["name", "surname", "email", "gender", "specialty"]
+          cardFields: ["name", "surname", "email", "gender", "specialty"],
+          inlineConnect: true,
+          linkToItem: true
         }
       })
+    },
+    ui: {
+      listView: {
+        initialColumns: ["hospitalName", "hospitalKey"]
+      }
     }
   }),
   Municipality: list({
