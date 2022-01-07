@@ -79,7 +79,7 @@ export const lists: Lists = {
         many: false,
         ui: {
           displayMode: "cards",
-          cardFields: ["hospitalName","hospitalKey"],
+          cardFields: ["hospitalName", "hospitalKey"],
           inlineConnect: true,
           linkToItem: true
         }
@@ -89,7 +89,7 @@ export const lists: Lists = {
   Hospital: list({
     fields: {
       hospitalName: text({ validation: { isRequired: true } }),
-      hospitalKey: text({ validation: { isRequired: true }, isIndexed: true }),
+      hospitalKey: text({ validation: { isRequired: true }, isIndexed: "unique" }),
       municipality: relationship({ ref: "Municipality.hospitals", many: false }),
       doctors: relationship({
         ref: "Doctor.hospital",
@@ -120,6 +120,11 @@ export const lists: Lists = {
           cardFields: ["hospitalName"]
         }
       })
+    },
+    ui: {
+      listView: {
+        initialColumns: ["municipalityName", "municipalityKey"]
+      }
     }
   })
 };

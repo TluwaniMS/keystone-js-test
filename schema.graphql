@@ -209,6 +209,7 @@ type Hospital {
 
 input HospitalWhereUniqueInput {
   id: ID
+  hospitalKey: String
 }
 
 input HospitalWhereInput {

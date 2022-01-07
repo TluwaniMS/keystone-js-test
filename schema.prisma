@@ -34,12 +34,11 @@ model Doctor {
 model Hospital {
   id             String        @id @default(cuid())
   hospitalName   String        @default("")
-  hospitalKey    String        @default("")
+  hospitalKey    String        @unique @default("")
   municipality   Municipality? @relation("Hospital_municipality", fields: [municipalityId], references: [id])
   municipalityId String?       @map("municipality")
   doctors        Doctor[]      @relation("Doctor_hospital")
 
-  @@index([hospitalKey])
   @@index([municipalityId])
 }
 
