@@ -90,7 +90,16 @@ export const lists: Lists = {
     fields: {
       hospitalName: text({ validation: { isRequired: true } }),
       hospitalKey: text({ validation: { isRequired: true }, isIndexed: "unique" }),
-      municipality: relationship({ ref: "Municipality.hospitals", many: false }),
+      municipality: relationship({
+        ref: "Municipality.hospitals",
+        many: false,
+        ui: {
+          displayMode: "cards",
+          cardFields: ["municipalityKey", "municipalityName"],
+          inlineConnect: true,
+          linkToItem: true
+        }
+      }),
       doctors: relationship({
         ref: "Doctor.hospital",
         many: true,
