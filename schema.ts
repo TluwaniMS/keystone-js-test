@@ -16,8 +16,6 @@ A field: The individual bits of data on your list, each with its own type.
 // for putting in our config so we get useful errors. With typescript,
 // we get these even before code runs.
 import { list } from "@keystone-6/core";
-import { Session } from "./data-types/sesssion.type";
-import { User } from "./data-types/user.type";
 // We're using some common fields in the starter. Check out https://keystonejs.com/docs/apis/fields#fields-api
 // for the full list of fields.
 import { text, relationship, password, select, checkbox } from "@keystone-6/core/fields";
@@ -25,15 +23,13 @@ import { text, relationship, password, select, checkbox } from "@keystone-6/core
 // Keystone aims to have all the base field types, but you can make your own
 // custom ones.
 import { document } from "@keystone-6/fields-document";
-
+import { isAdmin } from "./authentication-and-access-control-services/admin.access";
+import { isCurrentUser } from "./authentication-and-access-control-services/user.access";
 // We are using Typescript, and we want our types experience to be as strict as it can be.
 // By providing the Keystone generated `Lists` type to our lists object, we refine
 // our types to a stricter subset that is type-aware of other lists in our schema
 // that Typescript cannot easily infer.
 import { Lists } from ".keystone/types";
-
-const isAdmin = ({ session }: { session: Session }) => session?.data.isAdmin;
-const isCurrentUser = ({ session, item }: { session: Session; item: User | any }) => session?.data.id === item.id;
 
 // We have a users list, a blogs list, and tags for blog posts, so they can be filtered.
 // Each property on the exported object will become the name of a list (a.k.a. the `listKey`),
