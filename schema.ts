@@ -16,7 +16,7 @@ A field: The individual bits of data on your list, each with its own type.
 // for putting in our config so we get useful errors. With typescript,
 // we get these even before code runs.
 import { list } from "@keystone-6/core";
-
+import { Session } from "./data-types/sesssion.type";
 // We're using some common fields in the starter. Check out https://keystonejs.com/docs/apis/fields#fields-api
 // for the full list of fields.
 import { text, relationship, password, select, checkbox } from "@keystone-6/core/fields";
@@ -30,7 +30,7 @@ import { document } from "@keystone-6/fields-document";
 // our types to a stricter subset that is type-aware of other lists in our schema
 // that Typescript cannot easily infer.
 import { Lists } from ".keystone/types";
-
+const isAdmin = ({ session }: { session: Session }) => session?.isAdmin;
 // We have a users list, a blogs list, and tags for blog posts, so they can be filtered.
 // Each property on the exported object will become the name of a list (a.k.a. the `listKey`),
 // with the value being the definition of the list, including the fields.
@@ -52,6 +52,13 @@ export const lists: Lists = {
     }
   }),
   Doctor: list({
+    access: {
+      operation: {
+        create: isAdmin,
+        update: isAdmin,
+        delete: isAdmin
+      }
+    },
     fields: {
       name: text({ validation: { isRequired: true } }),
       surname: text({ validation: { isRequired: true } }),
@@ -88,6 +95,13 @@ export const lists: Lists = {
     }
   }),
   Hospital: list({
+    access: {
+      operation: {
+        create: isAdmin,
+        update: isAdmin,
+        delete: isAdmin
+      }
+    },
     fields: {
       hospitalName: text({ validation: { isRequired: true } }),
       hospitalKey: text({ validation: { isRequired: true }, isIndexed: "unique" }),
@@ -119,6 +133,13 @@ export const lists: Lists = {
     }
   }),
   Municipality: list({
+    access: {
+      operation: {
+        create: isAdmin,
+        update: isAdmin,
+        delete: isAdmin
+      }
+    },
     fields: {
       municipalityName: text({ validation: { isRequired: true } }),
       municipalityKey: text({ validation: { isRequired: true }, isIndexed: "unique" }),
