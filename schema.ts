@@ -55,7 +55,6 @@ export const lists: Lists = {
   Doctor: list({
     access: {
       operation: {
-        create: isAdmin,
         update: isAdmin,
         delete: isAdmin
       }
