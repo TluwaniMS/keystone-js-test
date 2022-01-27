@@ -49,7 +49,7 @@ export const lists: Lists = {
       }),
       // The password field takes care of hiding details and hashing values
       password: password({ validation: { isRequired: true }, access: { update: isCurrentUser } }),
-      isAdmin: checkbox({ defaultValue: false, access: { read: isAdmin, update: isAdmin } })
+      isAdmin: checkbox({ defaultValue: false, access: { update: isAdmin } })
     }
   }),
   Doctor: list({
