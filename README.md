@@ -1,5 +1,8 @@
 # Keystone Project Starter
 
+# About Repository:
+This is a basic keystone-js project that I created to learn the basic concepts of keystone.
+
 Welcome to Keystone!
 
 Run
