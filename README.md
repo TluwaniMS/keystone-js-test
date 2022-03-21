@@ -3,6 +3,9 @@
 # About Repository:
 This is a basic keystone-js project that I created to learn the basic concepts of keystone.
 
+# Software(s) required:
+* Latest stable version of Node Package Manager
+
 Welcome to Keystone!
 
 Run
