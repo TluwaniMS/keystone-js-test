@@ -6,6 +6,12 @@ This is a basic keystone-js project that I created to learn the basic concepts o
 # Software(s) required:
 * Latest stable version of Node Package Manager
 
+# Project Setup:
+
+* Step 1:
+
+Switch to the projects root directory and run "npm install" to install the rquired packages.
+
 Welcome to Keystone!
 
 Run
